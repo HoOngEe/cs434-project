@@ -17,6 +17,6 @@ lazy val root = project
     slave
   )
 
-lazy val master = project
-
-lazy val slave = project
+lazy val master = project.dependsOn(common)
+lazy val common = project
+lazy val slave = project.dependsOn(common)
