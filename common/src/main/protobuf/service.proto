@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service ConnectService {
+  rpc Connect (sourceAddr) returns (connectionResult) {}
+}
+
+message sourceAddr {
+  string ipv4 = 1;
+  uint32 port = 2;
+}
+
+message connectionResult {
+  bool result = 1;
+}
