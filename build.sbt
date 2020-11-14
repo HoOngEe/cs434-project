@@ -8,7 +8,6 @@ scalaVersion := "2.13.3"
 
 lazy val root = project
   .in(file("."))
-  .disablePlugins(AssemblyPlugin)
   .aggregate(
     common,
     master,
@@ -23,34 +22,22 @@ lazy val common = project
       scalapb.gen() -> (sourceManaged in Compile).value / "scalapb"
     )
   )
-  .disablePlugins(AssemblyPlugin)
 
 lazy val master = project
   .settings(
     name := "master",
-    assemblySettings,
     libraryDependencies ++= commonDependencies
   )
+  .enablePlugins(JavaAppPackaging)
   .dependsOn(common)
 
 lazy val slave = project
   .settings(
     name := "slave",
-    assemblySettings,
     libraryDependencies ++= commonDependencies
   )
+  .enablePlugins(JavaAppPackaging)
   .dependsOn(common)
-
-lazy val assemblySettings = Seq(
-  assemblyJarName in assembly := name.value + ".jar",
-  assemblyMergeStrategy in assembly := {
-    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-    case "application.conf"            => MergeStrategy.concat
-    case x =>
-      val oldStrategy = (assemblyMergeStrategy in assembly).value
-      oldStrategy(x)
-  }
-)
 
 lazy val commonDependencies = Seq(
   "io.grpc" % "grpc-netty" % scalapb.compiler.Version.grpcJavaVersion,
