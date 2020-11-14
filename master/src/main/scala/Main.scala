@@ -1,3 +1,5 @@
-object Main extends App {
-  println("Hello world from master")
+import org.apache.logging.log4j.scala.Logging
+
+object Main extends App with Logging {
+  logger.info("Hello world from master")
 }
