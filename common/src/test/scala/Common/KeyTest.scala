@@ -1,5 +1,6 @@
 package Common
 
+import Key._
 import org.scalatest.FunSuite
 
 class KeyTest extends FunSuite {
@@ -12,9 +13,15 @@ class KeyTest extends FunSuite {
     }
   }
 
-  test(" Compare keys") {
+  test("Compare keys") {
     val keySmaller = new Key(List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
     val keyBigger = new Key(List(1, 2, 3, 4 ,5, 6, 7, 8, 9, 11))
     assert(keySmaller < keyBigger)
+  }
+
+  test("Compare signed key properly") {
+    val keySmaller = new Key(List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+    val KeyBigger = maxKey
+    assert(keySmaller < maxKey)
   }
 }
