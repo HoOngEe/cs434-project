@@ -7,6 +7,8 @@ object Key {
   class Key(private val byteList: List[Byte]) extends Ordered[Key] {
     require(byteList.length == 10)
 
+    override def toString = byteList map (_ & 0xff) toString
+
     override def compare(other: Key): Int = {
       def compare_aux(x: List[Byte], y: List[Byte]): Int = {
         (x, y) match {

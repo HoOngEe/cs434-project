@@ -7,6 +7,7 @@ service ConnectService {
 message sourceAddr {
   string ipv4 = 1;
   uint32 port = 2;
+  bytes sampleKey = 3;
 }
 
 message connectionResult {
